@@ -1,0 +1,56 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>可麗露買起來</title>
+  <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="loginpage.css" rel="stylesheet" type="text/css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $("button").click(function () {
+        $.post("http://140.127.196.92:1234/auth", {
+          username: $("#name").val(),
+          password: $("#password").val()
+        },
+          function (data, status) {
+            $("#text").text("資料: \n" + data + "\n狀態: " + status);
+            $.cookie("authKey", data);
+             
+            if (data != "wrong password") {
+              var key = $.cookie("authKey");
+              console.log(key);
+              window.location.replace("cartpage1.html");
+            };
+          });
+      });
+    });
+  </script>
+  <style>
+    .link-signup{
+      text-decoration:underline;
+
+    }
+  </style>
+</head>
+
+<body>
+  <form action="shopcart.html" method="POST">
+
+    <div>
+      <p class="head">請先登入</p>
+
+      <p>使用者名稱:<input id="name" type="text" name="username" placeholder="您的使用者名稱"></p>
+
+      <p>密碼: <input id="password" type="password" name="password" placeholder="您的密碼"></p>
+      <p id="text"></p>
+
+      <button type="button" class="btn btn-info text-center">登入</button>
+      <a href="signup.html" class="link-signup ">沒有帳號/我要註冊</a>
+    </div>
+  </form>
+</body>
+</html>
